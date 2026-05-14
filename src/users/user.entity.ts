@@ -4,8 +4,10 @@ import {
   Entity,
   JoinTable,
   ManyToMany,
+  OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
+import { Appointment } from '../appointments/appointment.entity';
 import { Role } from '../roles/role.entity';
 
 @Entity('users')
@@ -44,4 +46,10 @@ export class User {
     },
   })
   roles!: Role[];
+
+  @OneToMany(() => Appointment, (appointment) => appointment.user)
+  appointments!: Appointment[];
+
+  @OneToMany(() => Appointment, (appointment) => appointment.doctor)
+  doctorAppointments!: Appointment[];
 }
